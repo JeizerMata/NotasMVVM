@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:NotasMVVM.ViewModels"
+             xmlns:models="clr-namespace:NotasMVVM.Models"
+             x:Class="NotasMVVM.Views.HistorialPage"
+             x:DataType="vm:HistorialViewModel"
+             Title="Historial">
+
+    <CollectionView ItemsSource="{Binding Registros}" Margin="10">
+        <CollectionView.EmptyView>
+            <Label Text="Sin registros de historial." HorizontalOptions="Center"
+                   TextColor="Gray" Margin="0,30,0,0" />
+        </CollectionView.EmptyView>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:Historial">
+                <Border Margin="0,4" Padding="10" StrokeShape="RoundRectangle 8" Stroke="#E0E0E0">
+                    <Grid ColumnDefinitions="Auto, *" ColumnSpacing="10">
+                        <Border BackgroundColor="#512BD4" StrokeShape="RoundRectangle 6"
+                                WidthRequest="60" HeightRequest="30" Stroke="Transparent">
+                            <Label Text="{Binding Accion}" TextColor="White" FontSize="12"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                            <Label Text="{Binding Descripcion}" FontSize="14" FontAttributes="Bold" />
+                            <Label Text="{Binding Fecha, StringFormat='{0:dd/MM/yyyy HH:mm:ss}'}"
+                                   FontSize="12" TextColor="Gray" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentPage>

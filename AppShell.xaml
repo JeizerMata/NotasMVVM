@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="NotasMVVM.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:NotasMVVM.Views"
+    Title="Notas MVVM">
+
+    <TabBar>
+        <ShellContent Title="Notas" Icon="dotnet_bot.png"
+                      ContentTemplate="{DataTemplate views:NotasPage}" Route="notas" />
+        <ShellContent Title="Historial" Icon="dotnet_bot.png"
+                      ContentTemplate="{DataTemplate views:HistorialPage}" Route="historial" />
+    </TabBar>
+
+</Shell>

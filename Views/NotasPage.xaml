@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:NotasMVVM.ViewModels"
+             xmlns:models="clr-namespace:NotasMVVM.Models"
+             x:Class="NotasMVVM.Views.NotasPage"
+             x:DataType="vm:NotasViewModel"
+             Title="Notas">
+
+    <Grid RowDefinitions="Auto, *" Padding="10" RowSpacing="10">
+        <VerticalStackLayout Spacing="8">
+            <SearchBar Text="{Binding TextoBusqueda}" Placeholder="Buscar por título..." />
+            <Button Text="+ Nueva Nota" Command="{Binding AgregarNotaCommand}"
+                    BackgroundColor="#512BD4" TextColor="White" />
+        </VerticalStackLayout>
+
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Notas}">
+            <CollectionView.EmptyView>
+                <Label Text="No hay notas. Crea una nueva." HorizontalOptions="Center"
+                       TextColor="Gray" Margin="0,30,0,0" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Nota">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Eliminar" BackgroundColor="Red"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:NotasViewModel}}, Path=EliminarNotaCommand}"
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Border Margin="0,4" Padding="12" StrokeShape="RoundRectangle 8" Stroke="#E0E0E0">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:NotasViewModel}}, Path=EditarNotaCommand}"
+                                    CommandParameter="{Binding .}" />
+                            </Border.GestureRecognizers>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Titulo}" FontSize="17" FontAttributes="Bold" />
+                                <Label Text="{Binding Contenido}" FontSize="14" TextColor="Gray"
+                                       MaxLines="2" LineBreakMode="TailTruncation" />
+                                <Label Text="{Binding FechaCreacion, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                       FontSize="12" TextColor="#999" Margin="0,4,0,0" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
